@@ -1,0 +1,65 @@
+{
+  "variables": {
+    "token": "{{env `DIGITALOCEAN_TOKEN`}}",
+    "image_name": "mastodon-digitalocean-{{timestamp}}"
+  },
+  "builders": [
+    {
+      "type": "digitalocean",
+      "api_token": "{{user `token`}}",
+      "image": "ubuntu-18-04-x64",
+      "region": "nyc3",
+      "size": "s-1vcpu-1gb",
+      "ssh_username": "root",
+      "snapshot_name": "{{user `image_name`}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/01-prepare.sh"
+      ]
+    },
+    {
+      "type": "shell",
+      "execute_command": "chmod +x {{ .Path }}; su -c '{{ .Vars }} {{ .Path }}' - mastodon",
+      "scripts": [
+        "scripts/02-install.sh"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "files/etc/",
+      "destination": "/etc/"
+    },
+    {
+      "type": "file",
+      "source": "files/var/",
+      "destination": "/var/"
+    },
+    {
+      "type": "file",
+      "source": "files/opt/",
+      "destination": "/opt/"
+    },
+    {
+      "type": "file",
+      "source": "files/home/",
+      "destination": "/home/"
+    },
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/03-finalize.sh"
+      ]
+    },
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/90-cleanup.sh",
+        "scripts/99-img_check.sh"
+      ]
+    }
+  ]
+}

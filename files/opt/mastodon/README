@@ -1,0 +1,37 @@
+
+                        ,----,__    __---''--___
+                     ,-'   ,-'\ '--'
+            ,       /   O      \
+           <_'---__/-       '-_/
+             '--___--
+                  /   ,
+            _   _/  ,''--__-''-_
+           / '-'   ;            '-_
+           '--__--'                \        ;
+                                    ;      /--__
+                                    |     ; ;
+                                    |     | ;
+                                    |     | ;
+                                    |     | ;
+                                    |     | ;
+                                   /ooo___|''
+
+Welcome to Mastodon!
+
+The documentation is available at https://docs.joinmastodon.org
+
+You can restart Mastodon with:
+
+ * sudo systemctl restart mastodon-web
+ * sudo systemctl restart mastodon-streaming
+ * sudo systemctl restart mastodon-sidekiq
+
+Mastodon is installed under /home/mastodon/live. To browse or change the
+files, login to the mastodon system user with:
+
+ * sudo su - mastodon
+
+You can browse error logs with:
+
+ * sudo journalctl -u mastodon-web
+

@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Configured as part of the DigitalOcean 1-Click Image build process
+
+cat /opt/mastodon/README
