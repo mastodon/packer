@@ -228,8 +228,6 @@ namespace :digitalocean do
 
       prompt.ok "Great! Saving this configuration..."
 
-      cmd = TTY::Command.new(printer: :quiet)
-
       File.write(Rails.root.join('.env.production'), "# Generated with mastodon:setup on #{Time.now.utc}\n\n" + env.each_pair.map { |key, value| "#{key}=#{value}" }.join("\n") + "\n")
 
       prompt.say "Booting up Mastodon..."
@@ -241,9 +239,7 @@ namespace :digitalocean do
       require_relative '../../config/environment'
       disable_log_stdout!
 
-      cmd = TTY::Command.new(printer: :quiet)
-
-      if cmd.run!({ RAILS_ENV: 'production', SAFETY_ASSURED: 1 }, :rails, 'db:seed').failure?
+      if !system(env.transform_values(&:to_s).merge({ 'RAILS_ENV' => 'production' }), 'rails db:seed')
         prompt.error 'Could not seed the database, aborting'
         exit(1)
       end

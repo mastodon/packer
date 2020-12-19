@@ -8,12 +8,12 @@ cd /home/mastodon \
   && export PATH="$HOME/.rbenv/bin:$PATH" \
   && eval "$(rbenv init -)" \
   && git clone https://github.com/rbenv/ruby-build.git /home/mastodon/.rbenv/plugins/ruby-build \
-  && RUBY_CONFIGURE_OPTS=--with-jemalloc rbenv install 2.6.5 \
-  && rbenv global 2.6.5 \
+  && RUBY_CONFIGURE_OPTS=--with-jemalloc rbenv install 2.6.6 \
+  && rbenv global 2.6.6 \
   && cd /home/mastodon \
   && gem install bundler --no-document \
   && git clone https://github.com/tootsuite/mastodon.git live && cd live \
-  && git checkout v3.1.2 \
+  && git checkout v3.2.2 \
   && bundle install -j$(getconf _NPROCESSORS_ONLN) --deployment --without development test \
   && yarn install --pure-lockfile \
   && RAILS_ENV=production DB_HOST=/var/run/postgresql SECRET_KEY_BASE=precompile_placeholder OTP_SECRET=precompile_placeholder SAFETY_ASSURED=1 bin/rails db:create db:schema:load assets:precompile
