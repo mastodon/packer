@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'tty-command'
 require 'tty-prompt'
+require 'tty-reader'
 
 namespace :digitalocean do
   desc 'Configure the instance for production use'
