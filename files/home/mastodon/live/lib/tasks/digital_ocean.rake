@@ -63,7 +63,7 @@ namespace :digitalocean do
             q.modify :strip
           end
 
-          env['S3_ENDPOINT'] = 'https://' + env['S3_HOSTNAME']
+          env['S3_ENDPOINT'] = "https://#{env['S3_HOSTNAME']}"
 
           env['AWS_ACCESS_KEY_ID'] = prompt.ask('Space access key:') do |q|
             q.required true
