@@ -40,24 +40,24 @@ namespace :digitalocean do
       env['REDIS_PORT'] = 6379
 
       if prompt.yes?('Do you want to store user-uploaded files on the cloud?', default: false)
-        case prompt.select('Provider', ['DigitalOcean Space','Amazon S3', 'Wasabi', 'Minio', 'Google Cloud Storage'])
-        when 'DigitalOcean Space'
+        case prompt.select('Provider', ['DigitalOcean Spaces','Amazon S3', 'Wasabi', 'Minio', 'Google Cloud Storage'])
+        when 'DigitalOcean Spaces'
           env['S3_ENABLED'] = 'true'
           env['S3_PROTOCOL'] = 'https'
 
-          env['S3_BUCKET'] = prompt.ask('Space name:') do |q|
+          env['S3_BUCKET'] = prompt.ask('Spaces name:') do |q|
             q.required true
             q.default "files.#{env['LOCAL_DOMAIN']}"
             q.modify :strip
           end
 
-          env['S3_REGION'] = prompt.ask('Space region:') do |q|
+          env['S3_REGION'] = prompt.ask('Spaces region:') do |q|
             q.required true
             q.default 'nyc3'
             q.modify :strip
           end
 
-          env['S3_HOSTNAME'] = prompt.ask('Space endpoint:') do |q|
+          env['S3_HOSTNAME'] = prompt.ask('Spaces endpoint:') do |q|
             q.required true
             q.default 'nyc3.digitaloceanspaces.com'
             q.modify :strip
@@ -65,12 +65,12 @@ namespace :digitalocean do
 
           env['S3_ENDPOINT'] = "https://#{env['S3_HOSTNAME']}"
 
-          env['AWS_ACCESS_KEY_ID'] = prompt.ask('Space access key:') do |q|
+          env['AWS_ACCESS_KEY_ID'] = prompt.ask('Spaces access key:') do |q|
             q.required true
             q.modify :strip
           end
 
-          env['AWS_SECRET_ACCESS_KEY'] = prompt.ask('Space secret key:') do |q|
+          env['AWS_SECRET_ACCESS_KEY'] = prompt.ask('Spaces secret key:') do |q|
             q.required true
             q.modify :strip
           end
