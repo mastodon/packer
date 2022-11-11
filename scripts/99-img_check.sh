@@ -69,6 +69,24 @@ function loadPasswords {
 SHADOW=$(cat /etc/shadow)
 }
 
+function checkAgent {
+  # Check for the presence of the DO directory in the filesystem
+  if [ -d /opt/digitalocean ];then
+     echo -en "\e[41m[FAIL]\e[0m DigitalOcean directory detected.\n"
+            ((FAIL++))
+            STATUS=2
+      if [[ $OS == "CentOS Linux" ]] || [[ $OS == "CentOS Stream" ]] || [[ $OS == "Rocky Linux" ]]; then
+        echo "To uninstall the agent: 'sudo yum remove droplet-agent'"
+        echo "To remove the DO directory: 'find /opt/digitalocean/ -type d -empty -delete'"
+      elif [[ $OS == "Ubuntu" ]] || [[ $OS == "Debian" ]]; then
+        echo "To uninstall the agent and remove the DO directory: 'sudo apt-get purge droplet-agent'"
+      fi
+  else
+    echo -en "\e[32m[PASS]\e[0m DigitalOcean Monitoring agent was not found\n"
+    ((PASS++))
+  fi
+}
+
 function checkLogs {
     cp_ignore="/var/log/cpanel-install.log"
     echo -en "\nChecking for log files in /var/log\n\n"
@@ -578,6 +596,8 @@ checkUsers
 
 echo -en "\n\nChecking the root account...\n"
 checkRoot
+
+checkAgent
 
 
 # Summary
