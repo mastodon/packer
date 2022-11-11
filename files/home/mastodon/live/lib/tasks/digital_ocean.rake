@@ -40,7 +40,7 @@ namespace :digitalocean do
       env['REDIS_PORT'] = 6379
 
       if prompt.yes?('Do you want to store user-uploaded files on the cloud?', default: false)
-        case prompt.select('Provider', ['DigitalOcean Spaces','Amazon S3', 'Wasabi', 'Minio', 'Google Cloud Storage'])
+        case prompt.select('Provider', ['DigitalOcean Spaces', 'Amazon S3', 'Wasabi', 'Minio', 'Google Cloud Storage'])
         when 'DigitalOcean Spaces'
           env['S3_ENABLED'] = 'true'
           env['S3_PROTOCOL'] = 'https'
