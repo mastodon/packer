@@ -13,7 +13,7 @@ cd /home/mastodon \
   && cd /home/mastodon \
   && gem install bundler --no-document \
   && git clone https://github.com/tootsuite/mastodon.git live && cd live \
-  && git checkout v3.5.3 \
+  && git checkout v4.0.2 \
   && bundle config set --local deployment 'true' \
   && bundle config set --local without 'development test' \
   && bundle install -j$(getconf _NPROCESSORS_ONLN) \
