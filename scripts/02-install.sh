@@ -8,7 +8,7 @@ cd /home/mastodon \
   && export PATH="$HOME/.rbenv/bin:$PATH" \
   && eval "$(rbenv init -)" \
   && git clone https://github.com/rbenv/ruby-build.git /home/mastodon/.rbenv/plugins/ruby-build \
-  && RUBY_CONFIGURE_OPTS=--with-jemalloc rbenv install 3.0.3 \
+  && RUBY_CONFIGURE_OPTS=--with-jemalloc rbenv install 3.0.4 \
   && rbenv global 3.0.4 \
   && cd /home/mastodon \
   && gem install bundler --no-document \
