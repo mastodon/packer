@@ -50,11 +50,13 @@ cloud-init status --wait \
   && apt -qqy install \
     certbot \
     nginx \
+    nodejs \
     postgresql \
     postgresql-contrib \
     python3-certbot-nginx \
     redis-server \
     redis-tools \
+    yarn \
   && corepack enable \
   && yarn set version stable \
   && adduser --disabled-login --gecos '' mastodon \
