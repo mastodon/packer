@@ -26,7 +26,7 @@ apt -qqy install \
   libicu72 \
   libidn-dev \
   libidn12 \
-  libjemalloc2 \
+  libjemalloc-dev \
   libncurses5-dev \
   libpq-dev \
   libpq5 \
