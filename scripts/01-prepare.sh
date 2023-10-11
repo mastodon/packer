@@ -60,6 +60,6 @@ apt-get install -y \
   yarn
 
 corepack enable
-yarn set version stable
+yarn set version classic
 adduser --disabled-login --gecos '' mastodon
 sudo -u postgres psql -c "CREATE USER mastodon CREATEDB;"
