@@ -5,12 +5,13 @@ NODE_MAJOR_VERSION=20
 
 cloud-init status --wait
 
-apt-get update
-apt-get install -y \
+apt -qqy update
+apt -qqy -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' full-upgrade
+
+apt -qqy install \
   autoconf \
   bison \
   build-essential \
-  certbot \
   curl \
   file \
   g++ \
@@ -25,7 +26,7 @@ apt-get install -y \
   libicu72 \
   libidn-dev \
   libidn12 \
-  libjemalloc2-dev \
+  libjemalloc2 \
   libncurses5-dev \
   libpq-dev \
   libpq5 \
@@ -38,8 +39,6 @@ apt-get install -y \
   libxslt1-dev \
   libyaml-dev \
   make \
-  nodejs \
-  patchelf \
   pkg-config \
   protobuf-compiler \
   procps \
@@ -59,8 +58,9 @@ apt-get install -y \
  echo "deb [signed-by=/usr/share/keyrings/redis.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
  echo "deb [signed-by=/usr/share/keyrings/nginx.gpg] http://nginx.org/packages/debian/ $(lsb_release -cs) nginx" | tee -a /etc/apt/sources.list.d/nginx.list
 
-apt-get update
-apt-get install -y \
+apt -qqy update
+apt -qqy install \
+  certbot \
   nginx \
   nodejs \
   postgresql \
