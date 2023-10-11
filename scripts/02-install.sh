@@ -7,8 +7,10 @@ cd /home/mastodon \
   && cd .. \
   && git clone https://github.com/rbenv/rbenv.git /home/mastodon/.rbenv \
   && echo 'export PATH="$/home/mastodon/.rbenv/bin:$PATH"' >> /home/mastodon/.bashrc \
+  && echo 'export PATH="/home/mastodon/.rbenv/plugins/ruby-build/bin:$PATH"' >> /home/mastodon/.bashrc \
   && echo 'eval "$(rbenv init -)"' >> /home/mastodon/.bashrc \
   && export PATH="/home/mastodon/.rbenv/bin:$PATH" \
+  && export PATH="/home/mastodon/.rbenv/plugins/ruby-build/bin:$PATH" \
   && eval "$(rbenv init -)" \
   && git clone https://github.com/rbenv/ruby-build.git /home/mastodon/.rbenv/plugins/ruby-build \
   && RUBY_VERSION=$(cat /home/mastodon/live/.ruby-version) \
