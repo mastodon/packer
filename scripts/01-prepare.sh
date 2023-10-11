@@ -7,26 +7,42 @@ cloud-init status --wait
 
 apt-get update
 apt-get install -y \
+  autoconf \
+  bison \
+  build-essential \
   certbot \
   curl \
+  file \
+  g++ \
+  gcc \
   git \
+  git-core \
   imagemagick \
   iptables-persistent \
+  libffi-dev \
   libgdbm-dev \
   libgmp-dev \
   libicu-dev \
   libicu72 \
   libidn-dev \
   libidn12 \
-  libjemalloc2 \
+  libjemalloc2-dev \
+  libncurses5-dev \
   libpq-dev \
   libpq5 \
+  libprotobuf-dev \
+  libreadline6-dev \
   libreadline8 \
   libssl-dev \
   libssl3 \
-  libyaml-0-2 \
+  libxml2-dev \
+  libxslt1-dev \
+  libyaml-dev \
   make \
+  nodejs \
   patchelf \
+  pkg-config \
+  protobuf-compiler \
   procps \
   shared-mime-info \
   tini \
@@ -59,7 +75,7 @@ apt-get install -y \
   redis-tools \
   yarn
 
-corepack enable
+# corepack enable
 yarn set version classic
 adduser --disabled-login --gecos '' mastodon
 sudo -u postgres psql -c "CREATE USER mastodon CREATEDB;"
