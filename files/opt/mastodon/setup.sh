@@ -8,7 +8,8 @@ systemctl stop nginx
 certbot certonly --standalone --agree-tos -d $LOCAL_DOMAIN 
 cp /home/mastodon/live/dist/nginx.conf /etc/nginx/conf.d/mastodon.conf 
 sed -i -- "s/example.com/$LOCAL_DOMAIN/g" /etc/nginx/conf.d/mastodon.conf 
-sed -i -- "s/  # ssl_certificate/  ssl_certificate/" /etc/nginx/conf.d/mastodon.conf 
+sed -i -- "s/  # ssl_certificate/  ssl_certificate/" /etc/nginx/conf.d/mastodon.conf
+rm -f /etc/nginx/conf.d/default.conf
 nginx -t 
 systemctl start nginx 
 systemctl enable mastodon-web 
