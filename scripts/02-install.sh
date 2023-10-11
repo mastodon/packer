@@ -1,19 +1,22 @@
 #!/bin/bash
 
 cd /home/mastodon \
+  && git clone https://github.com/mastodon/mastodon.git /home/mastodon/live \
+  && cd /home/mastodon/live \
+  && git checkout $(git tag -l | grep '^v[0-9.]*$' | sort -V | tail -n 1) \
+  && cd .. \
   && git clone https://github.com/rbenv/rbenv.git /home/mastodon/.rbenv \
-  && cd /home/mastodon/.rbenv && src/configure && make -C src \
-  && echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> /home/mastodon/.bashrc \
+  && echo 'export PATH="$/home/mastodon/.rbenv/bin:$PATH"' >> /home/mastodon/.bashrc \
   && echo 'eval "$(rbenv init -)"' >> /home/mastodon/.bashrc \
-  && export PATH="$HOME/.rbenv/bin:$PATH" \
+  && export PATH="/home/mastodon/.rbenv/bin:$PATH" \
   && eval "$(rbenv init -)" \
   && git clone https://github.com/rbenv/ruby-build.git /home/mastodon/.rbenv/plugins/ruby-build \
-  && RUBY_CONFIGURE_OPTS=--with-jemalloc rbenv install 3.0.3 \
-  && rbenv global 3.0.3 \
-  && cd /home/mastodon \
+  && RUBY_VERSION=$(cat /home/mastodon/live/.ruby-version) \
+  && RUBY_CONFIGURE_OPTS=--with-jemalloc rbenv install $RUBY_VERSION \
+  && rbenv global $RUBY_VERSION \
+  && cd /home/mastodon/live \
   && gem install bundler --no-document \
   && git clone https://github.com/tootsuite/mastodon.git live && cd live \
-  && git checkout v3.5.3 \
   && bundle config set --local deployment 'true' \
   && bundle config set --local without 'development test' \
   && bundle install -j$(getconf _NPROCESSORS_ONLN) \
