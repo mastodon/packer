@@ -23,18 +23,13 @@ apt -qqy install \
   libgdbm-dev \
   libgmp-dev \
   libicu-dev \
-  libicu72 \
   libidn-dev \
-  libidn12 \
   libjemalloc-dev \
   libncurses5-dev \
   libpq-dev \
-  libpq5 \
   libprotobuf-dev \
   libreadline-dev \
-  libreadline8 \
   libssl-dev \
-  libssl3 \
   libxml2-dev \
   libxslt1-dev \
   libyaml-dev \
