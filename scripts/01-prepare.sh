@@ -35,7 +35,6 @@ apt-get install -y --no-install-recommends \
   protobuf-compiler \
   procps \
   shared-mime-info \
-  tini \
   tzdata \
   zlib1g-dev
 
