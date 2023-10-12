@@ -5,10 +5,10 @@ NODE_MAJOR_VERSION=20
 
 cloud-init status --wait
 
-apt -qqy update
-apt -qqy -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' full-upgrade
+apt-get update
+apt-get dist-upgrade -yq;
 
-apt -qqy install \
+apt-get install -y --no-install-recommends \
   autoconf \
   bison \
   build-essential \
@@ -50,8 +50,8 @@ apt -qqy install \
  echo "deb [signed-by=/usr/share/keyrings/redis.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
  echo "deb [signed-by=/usr/share/keyrings/nginx.gpg] http://nginx.org/packages/debian/ $(lsb_release -cs) nginx" | tee -a /etc/apt/sources.list.d/nginx.list
 
-apt -qqy update
-apt -qqy install \
+apt-get update
+apt-get install -y --no-install-recommends \
   certbot \
   nginx \
   nodejs \
