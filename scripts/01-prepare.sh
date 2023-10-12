@@ -14,8 +14,6 @@ apt -qqy install \
   build-essential \
   curl \
   file \
-  g++ \
-  gcc \
   git \
   imagemagick \
   iptables-persistent \
@@ -33,7 +31,6 @@ apt -qqy install \
   libxml2-dev \
   libxslt1-dev \
   libyaml-dev \
-  make \
   pkg-config \
   protobuf-compiler \
   procps \
