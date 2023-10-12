@@ -12,8 +12,6 @@ apt-get install -y --no-install-recommends \
   autoconf \
   bison \
   build-essential \
-  curl \
-  file \
   git \
   imagemagick \
   iptables-persistent \
@@ -33,9 +31,7 @@ apt-get install -y --no-install-recommends \
   libyaml-dev \
   pkg-config \
   protobuf-compiler \
-  procps \
   shared-mime-info \
-  tzdata \
   zlib1g-dev
 
  curl -sS -o - https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor | tee /usr/share/keyrings/nodesource.gpg
