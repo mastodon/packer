@@ -16,5 +16,13 @@ rm -rf /var/lib/cloud/instance
 
 rm -f /root/.ssh/authorized_keys /etc/ssh/*key*
 
-dd if=/dev/zero of=/zerofile; sync; rm /zerofile; sync
+GREEN='\033[0;32m'
+NC='\033[0m'
+printf "\n${GREEN}Writing zeros to the remaining disk space to securely
+erase the unused portion of the file system.
+Depending on your disk size this may take several minutes.
+The secure erase will complete successfully when you see:${NC}
+    dd: writing to '/zerofile': No space left on device\n
+Beginning secure erase now\n"
+dd if=/dev/zero of=/zerofile bs=4096; sync; rm /zerofile; sync
 cat /dev/null > /var/log/lastlog; cat /dev/null > /var/log/wtmp; cat /dev/null > /var/log/auth.log
