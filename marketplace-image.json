@@ -7,7 +7,7 @@
     {
       "type": "digitalocean",
       "api_token": "{{user `token`}}",
-      "image": "ubuntu-20-04-x64",
+      "image": "debian-12-x64",
       "region": "nyc3",
       "size": "s-1vcpu-2gb",
       "ssh_username": "root",
