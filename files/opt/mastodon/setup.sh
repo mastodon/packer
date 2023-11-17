@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Booting Mastodon's first-time setup wizard..."
-su - mastodon -c "cd /home/mastodon/live  RAILS_ENV=production /home/mastodon/.rbenv/shims/bundle exec rake digitalocean:setup"
+sudo -u mastodon cd /home/mastodon/live  RAILS_ENV=production /home/mastodon/.rbenv/shims/bundle exec rake digitalocean:setup
 export "$(grep '^LOCAL_DOMAIN=' /home/mastodon/live/.env.production | xargs)"
 echo "Launching Let's Encrypt utility to obtain SSL certificate..."
 systemctl stop nginx

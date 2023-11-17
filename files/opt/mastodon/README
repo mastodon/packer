@@ -29,9 +29,8 @@ You can restart Mastodon with:
 Mastodon is installed under /home/mastodon/live. To browse or change the
 files, login to the mastodon system user with:
 
- * sudo su - mastodon
+ * su --shell=/bin/bash - mastodon
 
 You can browse error logs with:
 
  * sudo journalctl -u mastodon-web
-
