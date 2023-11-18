@@ -60,5 +60,5 @@ apt-get install -qqy --no-install-recommends \
   yarn
 
 yarn set version classic
-adduser --disabled-login --gecos '' mastodon
+adduser --disabled-password --gecos '' mastodon
 sudo -u postgres psql -c "CREATE USER mastodon CREATEDB;"
