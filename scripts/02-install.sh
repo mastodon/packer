@@ -10,7 +10,7 @@ cd /home/mastodon
 git clone https://github.com/rbenv/rbenv.git /home/mastodon/.rbenv
 git clone https://github.com/rbenv/ruby-build.git /home/mastodon/.rbenv/plugins/ruby-build
 
-echo 'export PATH="$/home/mastodon/.rbenv/bin:$PATH"' >> /home/mastodon/.bashrc
+echo 'export PATH="/home/mastodon/.rbenv/bin:$PATH"' >> /home/mastodon/.bashrc
 echo 'export PATH="/home/mastodon/.rbenv/plugins/ruby-build/bin:$PATH"' >> /home/mastodon/.bashrc
 echo 'eval "$(rbenv init -)"' >> /home/mastodon/.bashrc
 export PATH="/home/mastodon/.rbenv/bin:$PATH"

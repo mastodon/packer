@@ -23,7 +23,7 @@
     },
     {
       "type": "shell",
-      "execute_command": "chmod +x {{ .Path }}; su --shell=/bin/bash -c '{{ .Vars }} {{ .Path }}' - mastodon",
+      "execute_command": "chmod +x {{ .Path }}; su -c '{{ .Vars }} {{ .Path }}' - mastodon",
       "scripts": [
         "scripts/02-install.sh"
       ]

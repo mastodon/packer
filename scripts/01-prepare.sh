@@ -59,6 +59,8 @@ apt-get install -qqy --no-install-recommends \
   redis-tools \
   yarn
 
+systemctl enable redis-server.service
+
 yarn set version classic
 adduser --disabled-password --gecos '' mastodon
 sudo -u postgres psql -c "CREATE USER mastodon CREATEDB;"

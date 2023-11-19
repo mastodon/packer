@@ -29,7 +29,7 @@ You can restart Mastodon with:
 Mastodon is installed under /home/mastodon/live. To browse or change the
 files, login to the mastodon system user with:
 
- * su --shell=/bin/bash - mastodon
+ * su - mastodon
 
 You can browse error logs with:
 
