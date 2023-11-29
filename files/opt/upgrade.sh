@@ -10,7 +10,8 @@ if [[ $REPLY =~ ^[Yy]$|^$ ]]; then
     yarn set version classic
 
     echo "Downloading new Mastodon code..."
-    su - mastodon -c "cd /home/mastodon/live && git fetch --tags && git checkout $(su - mastodon -c 'cd /home/mastodon/live && git tag -l | grep '^v[0-9.]*$' | sort -V | tail -n 1')"
+    GIT_TAG=$(su - mastodon -c "cd /home/mastodon/live && git tag -l | grep '^v[0-9.]*$' | sort -V | tail -n 1")
+    su - mastodon -c "cd /home/mastodon/live && git fetch --tags && git checkout $GIT_TAG"
     RUBY_VERSION=$(cat /home/mastodon/live/.ruby-version)
 
     echo "Stopping Mastodon services..."
@@ -19,13 +20,13 @@ if [[ $REPLY =~ ^[Yy]$|^$ ]]; then
     systemctl stop mastodon-sidekiq
 
     echo "Upgrading Ruby..."
-    su - mastodon -c "cd /home/mastodon/live && RUBY_CONFIGURE_OPTS=--with-jemalloc /home/mastodon/.rbenv/bin/rbenv install $RUBY_VERSION && /home/mastodon/.rbenv/bin/rbenv global $RUBY_VERSION"
+    su - mastodon -c "cd /home/mastodon/live && RUBY_CONFIGURE_OPTS=--with-jemalloc rbenv install $RUBY_VERSION && rbenv global $RUBY_VERSION"
 
     echo "Upgrading Mastodon dependencies..."
-    su - mastodon -c "cd /home/mastodon/live && /home/mastodon/.rbenv/shims/bundle install && yarn install --frozen-lockfile"
+    su - mastodon -c "cd /home/mastodon/live && bundle install && yarn install --frozen-lockfile"
 
     echo "Creating new Mastodon assets and upgrading database..."
-    su - mastodon -c "cd /home/mastodon/live && RAILS_ENV=production /home/mastodon/.rbenv/shims/bundle exec rails assets:clobber assets:precompile db:migrate"
+    su - mastodon -c "cd /home/mastodon/live && RAILS_ENV=production bundle exec rails assets:clobber assets:precompile db:migrate"
 
     echo "Restarting Mastodon services..."
     systemctl start mastodon-web

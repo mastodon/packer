@@ -4,7 +4,7 @@ set -e
 
 echo "Booting Mastodon's first-time setup wizard..."
 
-su - mastodon -c "cd /home/mastodon/live && RAILS_ENV=production /home/mastodon/.rbenv/shims/bundle exec rake digitalocean:setup"
+su - mastodon -c "cd /home/mastodon/live && RAILS_ENV=production bundle exec rake digitalocean:setup"
 export "$(grep '^LOCAL_DOMAIN=' /home/mastodon/live/.env.production | xargs)"
 
 echo "Launching Let's Encrypt utility to obtain SSL certificate..."
