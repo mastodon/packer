@@ -62,8 +62,5 @@ apt-get install -qqy --no-install-recommends \
 systemctl enable redis-server.service
 
 yarn set version classic
+adduser --disabled-password --gecos '' --shell /bin/bash mastodon
 sudo -u postgres psql -c "CREATE USER mastodon CREATEDB;"
-
-# When adding mastodon user, comment out bash rule disabling env loading in non-interactive shell
-adduser --disabled-password --gecos '' mastodon
-su - mastodon -c "sed -ie -- '/^case \$- in/,+3 s/^/#/' /home/mastodon/.bashrc"
