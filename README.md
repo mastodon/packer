@@ -3,21 +3,20 @@
 [Packer](https://www.packer.io/intro/index.html) is a tool for creating images from a single source configuration. Using this Packer template reduces the entire process of creating, configuring, validating, and snapshotting a build Droplet to a single command:
 
 ```
-packer build marketplace-image.json
+packer build marketplace-image.pkr.hcl
 ```
 
 This Packer template uses the same LAMP-based example as the [Fabric sample project](../fabric). Like the Fabric sample project, you can modify this template to use as a starting point for your image.
 
 ## Usage
 
-To run the LAMP example that this template uses by default, you'll need to [install Packer](https://www.packer.io/intro/getting-started/install.html) and [create a DigitalOcean personal access token](https://www.digitalocean.com/docs/api/create-personal-access-token/) and set it to the `DIGITALOCEAN_TOKEN` environment variable. Running `packer build marketplace-image.json` without any other modifications will create a build Droplet configured with LAMP, clean and verify it, then power it down and snapshot it.
+To run the LAMP example that this template uses by default, you'll need to [install Packer](https://www.packer.io/intro/getting-started/install.html) and [create a DigitalOcean personal access token](https://www.digitalocean.com/docs/api/create-personal-access-token/) and set it to the `DIGITALOCEAN_TOKEN` environment variable. Running `packer build marketplace-image.pkr.hcl` without any other modifications will create a build Droplet configured with LAMP, clean and verify it, then power it down and snapshot it.
 
 > ⚠️ The image validation script in `scripts/99-img_check.sh` is copied from the [top-level `scripts` directory](../scripts) in this repository. The top-level location is the script's canonical source, so make sure you're using the latest version from there.
 
-To start adapting this template for your own image, you can customize some variables in `marketplace-image.json`:
+To start adapting this template for your own image, there are some variables that can be set:
 
-* `apt_packages` lists the APT packages to install on the build Droplet.
-* `image_name` defines the name of the resulting snapshot, which by default is `marketplace-snapshot-` with a UNIX timestamp appended.
+* `image_name` defines the name of the resulting snapshot, which by default is `mastodon-digitalocean-` with a UNIX timestamp appended.
 
 You can also modify these variables at runtime by using [the `-var` flag](https://www.packer.io/docs/templates/user-variables.html#setting-variables).
 
@@ -32,4 +31,3 @@ This template uses Packer's [file provisioner](https://www.packer.io/docs/provis
 This template also uses Packer's [shell provisioner](https://www.packer.io/docs/provisioners/shell.html) to run scripts from the `/scripts` directory and install APT packages using an inline task.
 
 Learn more about using Packer in [the official Packer documentation](https://www.packer.io/docs/index.html).
-
