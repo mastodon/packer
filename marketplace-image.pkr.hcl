@@ -23,11 +23,11 @@ locals {
 }
 
 source "digitalocean" "debian" {
-  api_token     = "${var.digitalocean_token}"
+  api_token     = var.digitalocean_token
   image         = "debian-12-x64"
   region        = "nyc3"
   size          = "s-1vcpu-2gb"
-  snapshot_name = "${var.image_name}"
+  snapshot_name = local.image_name
   ssh_username  = "root"
 }
 
