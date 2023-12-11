@@ -4,14 +4,20 @@ set -e
 
 echo "Booting Mastodon's first-time setup wizard..."
 
+ENV_FILE="/home/mastodon/live/.env.production"
+
 su - mastodon -c "cd /home/mastodon/live && RAILS_ENV=production bundle exec rake digitalocean:setup"
-export "$(grep '^LOCAL_DOMAIN=' /home/mastodon/live/.env.production | xargs)"
+if grep -q '^WEB_DOMAIN=' ${ENV_FILE}; then
+  export WEB_DOMAIN="$(grep '^WEB_DOMAIN=' ${ENV_FILE} | awk -F "=" '{print $2}' | xargs)"
+else
+  export WEB_DOMAIN="$(grep '^LOCAL_DOMAIN=' ${ENV_FILE} | awk -F "=" '{print $2}' | xargs)"
+fi
 
 echo "Launching Let's Encrypt utility to obtain SSL certificate..."
 systemctl stop nginx
-certbot certonly --standalone --agree-tos -d $LOCAL_DOMAIN
+certbot certonly --standalone --agree-tos -d $WEB_DOMAIN
 cp /home/mastodon/live/dist/nginx.conf /etc/nginx/conf.d/mastodon.conf
-sed -i -- "s/example.com/$LOCAL_DOMAIN/g" /etc/nginx/conf.d/mastodon.conf
+sed -i -- "s/example.com/$WEB_DOMAIN/g" /etc/nginx/conf.d/mastodon.conf
 sed -i -- "s/  # ssl_certificate/  ssl_certificate/" /etc/nginx/conf.d/mastodon.conf
 rm -f /etc/nginx/conf.d/default.conf
 nginx -t
@@ -30,4 +36,4 @@ set +e
 
 /opt/upgrade.sh
 
-echo "Setup is complete! Login at https://$LOCAL_DOMAIN"
+echo "Setup is complete! Login at https://$WEB_DOMAIN"
