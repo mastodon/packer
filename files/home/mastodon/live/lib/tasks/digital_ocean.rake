@@ -11,12 +11,29 @@ namespace :digitalocean do
 
     begin
       prompt.ok('Welcome to the Mastodon first-time setup!')
+      if prompt.yes?('Do you want to host the Mastodon web app on a different domain than the one you want displayed in your users\' handles? This cannot be safely changed later.', default: false)
 
-      env['LOCAL_DOMAIN'] = prompt.ask('Domain name:') do |q|
-        q.required true
-        q.modify :strip
-        q.validate(/\A[a-z0-9\.\-]+\z/i)
-        q.messages[:valid?] = 'Invalid domain. If you intend to use unicode characters, enter punycode here'
+        prompt.say "You will need to configure a webfinger redirect on your handle (local) domain to redirect to your web domain. See https://docs.joinmastodon.org/admin/config/#federation for more information."
+
+        env['WEB_DOMAIN'] = prompt.ask('Domain name you wish to host the Mastodon web app on (e.g. mastodon.example.com):') do |q|
+          q.required true
+          q.modify :strip
+          q.validate(/\A[a-z0-9\.\-]+\z/i)
+          q.messages[:valid?] = 'Invalid domain. If you intend to use unicode characters, enter punycode here'
+        end
+        env['LOCAL_DOMAIN'] = prompt.ask('Domain name for your users\' handles (e.g. example.com):') do |q|
+          q.required true
+          q.modify :strip
+          q.validate(/\A[a-z0-9\.\-]+\z/i)
+          q.messages[:valid?] = 'Invalid domain. If you intend to use unicode characters, enter punycode here'
+        end
+      else
+        env['LOCAL_DOMAIN'] = prompt.ask('Domain name:') do |q|
+          q.required true
+          q.modify :strip
+          q.validate(/\A[a-z0-9\.\-]+\z/i)
+          q.messages[:valid?] = 'Invalid domain. If you intend to use unicode characters, enter punycode here'
+        end
       end
 
       %w(SECRET_KEY_BASE OTP_SECRET).each do |key|
@@ -307,7 +324,7 @@ namespace :digitalocean do
       user.save(validate: false)
 
       prompt.ok "You can login with the password: #{password}"
-      prompt.ok "The web interface should be momentarily accessible via https://#{env['LOCAL_DOMAIN']}/"
+      prompt.ok "The web interface should be momentarily accessible via https://#{env['WEB_DOMAIN'] ? env['WEB_DOMAIN'] : env['LOCAL_DOMAIN']}/"
     rescue TTY::Reader::InputInterrupt
       prompt.ok 'Aborting. Bye!'
       exit(1)
